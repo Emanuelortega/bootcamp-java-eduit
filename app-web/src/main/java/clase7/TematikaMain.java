@@ -15,6 +15,10 @@ public class TematikaMain {
 		
 		miBuscador.buscar();//F3
 		
+		// miBuscador.articulos = null;		
+		// miBuscador.cantidad = 100;		
+		// miBuscador.claveBusqueda = null;
+				
 		//mostramos cuantos articulos hay
 		miBuscador.mostrarCantidadResultados();
 		
@@ -24,7 +28,17 @@ public class TematikaMain {
 			miBuscador.detalle();
 		}
 		
+		//creo el carrito
+		Carrito carrito = new Carrito();
+		
 		//ahora agrego los articulo (impares) al carrito
+		if(miBuscador.hayResultados()) {
+			for(int i=0;i<miBuscador.getCantidadaArticulos();i++) {
+				if(i%2!=0) {
+					// carrito.
+				}
+			}
+		}
 	}
 
 }

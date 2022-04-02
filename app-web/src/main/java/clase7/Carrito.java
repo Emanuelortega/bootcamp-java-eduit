@@ -3,14 +3,14 @@ package clase7;
 public class Carrito {
 
 	//atributos
-	Item[] items;
+	private Item[] items;
 	
 	//contructores
-	Carrito() {
+	public Carrito() {
 		this.items = new Item[0];
 	}
 	
-	void agregarAlCArrito(Articulo art) {
+	public void agregarAlCArrito(Articulo art) {
 		//agrgar el contructor a Item
 		Item i = new Item(art,1);
 		Item[] nuevos = new Item[this.items.length + 1];
@@ -21,41 +21,41 @@ public class Carrito {
 		this.items = nuevos;
 	}
 	
-	void seguirComprando() {
+	public void seguirComprando() {
 		System.out.println("Seguimos comprando");
 	}
 	
-	void limpiar() {
+	public void limpiar() {
 		//logica?
 		this.items = new Item[0];
 	}
 	
-	void actualizar(Item[] itemsActualizados) {
+	public void actualizar(Item[] itemsActualizados) {
 		this.items = itemsActualizados;
 	}
 	
-	Double obtenerPrecio() {
-		//¿como calculo?
+	public Double obtenerPrecio() {
+		//como calculo?
 		//return this.items.cantidad * this.items.articulos.precio;
 		Double precioFinal = 0d;
 		
 		for(Item item : this.items) {
-			precioFinal += item.articulo.precio;
+			precioFinal += item.articulo.getPrecio();
 	    }
 		
 		return precioFinal;
 	}
 	
-	void eliminarItem(Item itemAEliminar) {
+	public void eliminarItem(Item itemAEliminar) {
 		for(Item item : this.items) {
-			if(existeItem(itemAEliminar.articulo.id) ) {
+			if(existeItem(itemAEliminar.articulo.getId()) ) {
 				//crear un vector con un elemento menos de lo que tiene el original
 				copiarItems();
 			}
 		}
 	}
 	
-	void copiarItems() {
+	public void copiarItems() {
 		Item[] nuevos = new Item[this.items.length - 1];
 		for(Item item : this.items) {
 			//reto
@@ -65,10 +65,10 @@ public class Carrito {
 		this.items = nuevos;
 	}
 	
-	boolean existeItem(Long idArticulo) {
+	public boolean existeItem(Long idArticulo) {
 		boolean existe = false;
 		for(Item item : this.items) {
-			if(item.articulo.id.equals(idArticulo) ) {
+			if(item.articulo.getId().equals(idArticulo) ) {
 				existe = true;
 				break;
 			}
@@ -76,7 +76,7 @@ public class Carrito {
 		return existe;
 	}
 	
-	Integer obtenerCantidadItems() {
+	public Integer obtenerCantidadItems() {
 		return this.items.length;
 	}
 }
