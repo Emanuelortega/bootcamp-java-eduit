@@ -8,7 +8,7 @@ public class FormularioLegales extends Formulario {
 
 	@Override
 	public void definirEtiquetas() {
-		Etiqueta apellido = new Etiqueta("apelido");
+		Etiqueta apellido = new Etiqueta("apellido");
 		Etiqueta nombre = new Etiqueta("nombre");
 		
 		super.agregarEtiqueta(apellido);

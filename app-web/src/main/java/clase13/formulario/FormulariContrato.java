@@ -9,7 +9,7 @@ public class FormulariContrato extends Formulario {
 	@Override
 	public void definirEtiquetas() {
 		Etiqueta direccion = new Etiqueta("direccion");
-		Etiqueta apellido = new Etiqueta("apelido");
+		Etiqueta apellido = new Etiqueta("apellido");
 		Etiqueta nombre = new Etiqueta("nombre");
 		
 		super.agregarEtiqueta(new Etiqueta[] {direccion, apellido, nombre});
