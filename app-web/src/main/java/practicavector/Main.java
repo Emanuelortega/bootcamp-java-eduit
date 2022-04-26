@@ -1,18 +1,17 @@
 package practicavector;
 
+
 public class Main {
 
 	public static void main(String[] args) {
 
 		
-		
+	
 		Objetovolador avion = new Objetovolador();
 		
 		
 		avion.nombre="avion1";
 		avion.cantruedas=0;
-		
-		
 		
 		System.out.println(avion.archivo.canthojas);
 		System.out.println(avion.archivo.nombredato);
@@ -30,6 +29,8 @@ public class Main {
 		Archivo archivoprueba = avion.devolverarchivo();
 		System.out.println(archivoprueba.canthojas);
 		System.out.println(archivoprueba.nombredato);
+		
+		
 		
 		
 		

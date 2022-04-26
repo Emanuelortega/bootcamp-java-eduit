@@ -60,7 +60,7 @@ public class MapMain {
 		
 		//obtengo los valores del mapa
 		Collection<String> values = mapSemana.values();
-		System.out.println("valores del mapa: " + keys);
+		System.out.println("valores del mapa: " + values);
 
 		//recorrer el mapa usando sus claves
 		for(Integer oneKey : keys) {
