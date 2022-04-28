@@ -1,4 +1,4 @@
-package clase19;
+package clase19.copy;
 
 public class Context {
 	
@@ -24,6 +24,5 @@ public class Context {
 	public void setMonto(Float monto) {
 		this.monto = monto;
 	}
-	
 	
 }

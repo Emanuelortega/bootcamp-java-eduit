@@ -28,6 +28,16 @@ public class Libro extends Articulo{
 		//misma logica
 		this.isbn = isbn;
 	}
+	
+	
+	
+	
+	@Override
+	public String toString() {
+		return "Libro [isbn=" + isbn + ", getId()=" + getId() + ", getNombre()=" + getNombre() + ", getAutor()="
+				+ getAutor() + ", getPrecio()=" + getPrecio() + ", getUrlImagen()=" + getUrlImagen() + "]";
+	}
+
 	/*
 	public void detalle() {
 		//le digo al padre que hago lo que sabe hacer

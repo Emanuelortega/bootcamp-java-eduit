@@ -1,4 +1,4 @@
-package clase19;
+package clase19.copy;
 
 import java.util.Scanner;
 

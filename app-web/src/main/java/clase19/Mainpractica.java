@@ -34,7 +34,7 @@ public class Mainpractica {
 		Collection<String> valor = mapa1.values();
 
 		System.out.println(valor);
-
+		/*
 		// mapa1.get(K)= devuelve su valor;
 
 		for (Integer K : Keys) {
@@ -62,5 +62,6 @@ public class Mainpractica {
 			
 			
 		}
+		*/
 	}
 }
