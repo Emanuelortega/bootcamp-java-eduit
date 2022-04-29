@@ -24,6 +24,7 @@ public class Libro extends Articulo{
 		return isbn;
 	}
 
+
 	public void setIsbn(String isbn) {
 		//misma logica
 		this.isbn = isbn;
@@ -41,5 +42,10 @@ public class Libro extends Articulo{
 	@Override
 	public void detalleHijo() {
 		System.out.println("ISBN:" + this.getIsbn());
+	}
+	@Override
+	public String toString() {
+		return "Libro [isbn=" + isbn + ", getId()=" + getId() + ", getNombre()=" + getNombre() + ", getAutor()="
+				+ getAutor() + ", getPrecio()=" + getPrecio() + ", getUrlImagen()=" + getUrlImagen() + "]";
 	}
 }

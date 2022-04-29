@@ -48,9 +48,9 @@ public abstract class Articulo {
 	 */
 	public Long getId() {
 		Long id = this.id;
-		if(id == null) {
+		/*if(id == null) {
 			id = -1l;
-		}
+		}*/
 		return id;
 	}
 
