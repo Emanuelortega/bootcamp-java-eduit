@@ -1,7 +1,10 @@
 package ar.com.educacionit.daos;
 
+import java.util.List;
+
 import ar.com.educacionit.daos.db.exceptions.GenericException;
 import ar.com.educacionit.domain.Articulo;
+
 /**
  * 
  * @author LopezCar
@@ -10,11 +13,14 @@ import ar.com.educacionit.domain.Articulo;
 public interface ArticuloDao {
 
 	// definir los metodos CRUD
+
+	public List<Articulo> findAll() throws GenericException;
+
 	public Articulo save(Articulo orden);
 
 	public Articulo getByPK(Long id) throws GenericException;
 
-	public Articulo update(Articulo ordenToUpdate);
+	public void update(Articulo ordenToUpdate) throws GenericException;
 
-	public Articulo delete(Long id);
+	public void delete(Long id) throws GenericException;
 }
