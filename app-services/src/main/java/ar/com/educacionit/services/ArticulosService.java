@@ -13,4 +13,6 @@ public interface ArticulosService {
 	public void deleteArticulo(Long id) throws ServiceException;
 	public void updateArticulo (Articulo entity) throws ServiceException;
 	public List<Articulo> ObtenerTodos() throws ServiceException;
+	public void createArticulo(Articulo nuevo) throws ServiceException;
+	public Articulo getByCodigo(String codigo)throws ServiceException;
 }

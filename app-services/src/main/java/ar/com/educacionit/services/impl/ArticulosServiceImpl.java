@@ -3,6 +3,7 @@ package ar.com.educacionit.services.impl;
 import java.util.List;
 
 import ar.com.educacionit.daos.ArticuloDao;
+import ar.com.educacionit.daos.db.exceptions.DuplicatedException;
 import ar.com.educacionit.daos.db.exceptions.GenericException;
 import ar.com.educacionit.daos.impl.ArticuloDaoMysqlImpl;
 import ar.com.educacionit.domain.Articulo;
@@ -61,4 +62,23 @@ public class ArticulosServiceImpl implements ArticulosService {
 		}
 	}
 
+	@Override
+	public void createArticulo(Articulo nuevo) throws ServiceException {
+		try {
+			 dao.save(nuevo);
+		} catch (GenericException | DuplicatedException e) {
+			throw new ServiceException("error consultando articulos", e);
+		}
+		
+	}
+	
+	@Override
+	public Articulo getByCodigo(String codigo) throws ServiceException {
+		try {
+			return dao.getByCode(codigo);
+		} catch (GenericException e) {
+			throw new ServiceException("error consultando articulos", e);
+		}
+	}
+	
 }
