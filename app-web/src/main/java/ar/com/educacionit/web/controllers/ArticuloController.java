@@ -16,21 +16,23 @@ public class ArticuloController {
 		ArticulosService service = new ArticulosServiceImpl();
 
 		try {
-			//obtengo todos los articulos
-			List<Articulo> list = service.ObtenerTodos();
-			
-			if(!list.isEmpty()) {
-				
+			// obtengo todos los articulos
+			List<Articulo> list = service.finAll();
+
+			System.out.println(list);
+
+			if (!list.isEmpty()) {
+
 				Articulo articulo = service.getById(list.get(0).getId());
 				System.out.println(articulo);
-				
-				//quiero eliminar el articulo
-				//service.deleteArticulo(articulo.getId());
-				//System.out.println("se ha eliminado :"+ articulo.getId());
+
+				// quiero eliminar el articulo
+				// service.deleteArticulo(articulo.getId());
+				// System.out.println("se ha eliminado :"+ articulo.getId());
 				articulo.setStock(25l);
 				articulo.setPrecio(100000d);
-				
-				service.updateArticulo(articulo);
+
+				service.update(articulo);
 			}
 		} catch (ServiceException e) {
 

@@ -45,20 +45,18 @@ public class CrearArticuloController {
 
 		ArticulosService articuloService = new ArticulosServiceImpl();
 
-		//continuar 1:25 clase 29
-		
-	
+		// continuar 1:25 clase 29
+
 		try {
 
 			// obtengo marcasId y categoriasId
 
-			articuloService.createArticulo(nuevo);
+			articuloService.create(nuevo);
 			System.out.println(nuevo);
-			
+
 		} catch (ServiceException e) {
 			System.err.println(e.getMessage() + "," + e.getCause().getMessage());
 
-		
 			System.out.println("Existe, actualizando...");
 			// si fue duplicado
 			try {
@@ -72,7 +70,7 @@ public class CrearArticuloController {
 				artQueExisteEnlaDB.setStock(artQueExisteEnlaDB.getStock() + nuevo.getStock());
 				artQueExisteEnlaDB.setTitulo(nuevo.getTitulo());
 
-				articuloService.updateArticulo(artQueExisteEnlaDB);
+				articuloService.update(artQueExisteEnlaDB);
 			} catch (ServiceException e1) {
 				System.err.println(e1.getMessage() + "," + e.getCause());
 			}
