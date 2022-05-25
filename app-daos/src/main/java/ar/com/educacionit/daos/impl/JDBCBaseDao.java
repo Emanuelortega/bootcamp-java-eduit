@@ -95,6 +95,27 @@ public abstract class JDBCBaseDao<T> implements GenericDao<T> {
 					throw new GenericException(sql, se);
 				}
 	}
+	
+	@Override
+	public List<T> findPageable(Integer currentPage, Integer size) throws GenericException {
+		List<T> registros = new ArrayList<>();
+		String sql = "SELECT * FROM " + this.tabla+ " LIMIT "+ size+ " OFFSET "+ (currentPage -1);
+
+		try (Connection con2 = AdministradorDeConexiones.obtenerConexion();
+				Statement st = con2.createStatement();
+				ResultSet rs = st.executeQuery(sql)) {
+			while (rs.next()) {
+
+				T entity = fromResultSetToEntity(rs);
+				registros.add(entity);
+			}
+			return registros;
+
+		} catch (SQLException e) {
+			throw new GenericException("Error ejecutando" + sql, e);
+		}
+
+	}
 
 	public abstract T fromResultSetToEntity(ResultSet rs) throws SQLException;
 	/*

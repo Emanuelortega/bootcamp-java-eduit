@@ -11,5 +11,5 @@ public interface GenericService<T> {
 	public void update(T entity) throws ServiceException;
 	public List<T> finAll() throws ServiceException;
 	public void create(T nuevo) throws ServiceException;
-	
+	public void findPageable(Integer currentPage, Integer size) throws ServiceException;
 }

@@ -66,6 +66,16 @@ public abstract class AbstractBaseService<T> implements GenericService<T> {
 		
 	}
 	
+	@Override
+	public void findPageable(Integer currentPage, Integer size) throws ServiceException {
+		try {
+			 dao.findPageable(currentPage,size);
+		} catch (GenericException e) {
+			throw new ServiceException("error consultando T", e);
+		}
+		
+	}
+	
 	
 	
 }

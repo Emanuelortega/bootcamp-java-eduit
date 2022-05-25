@@ -1,0 +1,203 @@
+-- MOSTRAR COLUMNAS DETERMINADAS 
+SELECT ID,TITULO,PRECIO
+FROM articulos;
+
+
+--  ALIAS DE CAMPO
+SELECT ID AS PK
+FROM articulos;
+
+-- consultar los articulos con precio > xyz
+SELECT * FROM articulos
+WHERE PRECIO > 1000;
+
+-- consultar los articulos con precio DISTINTO (<>) xyz
+SELECT * FROM articulos
+WHERE PRECIO <> 1000;
+
+-- RANGO DE VALORES
+SELECT * FROM articulos
+WHERE PRECIO >= 100000 AND PRECIO <1000000
+AND categoria_id = 1;
+
+
+-- OTRA FORMA DE ESTABLECER RANGO DE VALORES
+SELECT * FROM articulos
+WHERE PRECIO BETWEEN 10000 AND 110000
+AND categoria_id = 1;
+
+-- consultar los articulos POR UN VALOR U OTRO DEL CAMPO
+SELECT * FROM articulos
+WHERE categoria_id = 1 OR categoria_id = 2;
+
+-- CONSULTAR ARTICULOS POR UN VALOR U OTRO DEL CAMPO 
+-- UTILIZANDO IN(V1,V2,....VN). SOPORTA HASTA 1000 VALORES
+
+SELECT * FROM articulos
+WHERE categoria_id IN (1,2);
+
+
+ -- COMBINAR
+SELECT * FROM articulos 
+WHERE stock BETWEEN 25 AND 30
+AND categoria_id IN (1,2);
+
+ -- COMBINAR CON NOT IN()
+SELECT * FROM articulos 
+WHERE stock BETWEEN 25 AND 30
+AND categoria_id NOT IN (1,2);
+
+-- CONCATENAR CAMPOS
+SELECT CONCAT(titulo, '--', codigo)
+FROM articulos;
+
+-- CONCATENAR CAMPOS CON ALIAS
+SELECT CONCAT(titulo, '--', codigo)
+AS DESCRIPCION
+FROM articulos;
+
+-- MAXIMO ID
+SELECT MAX(ID)
+AS MAX_ID
+FROM articulos;
+
+-- MINIMO ID
+SELECT MIN(ID)
+AS MIN_ID
+FROM articulos;
+
+-- APLICAR CALCULO A UN CAMPO
+SELECT ID, PRECIO, PRECIO * 1.21 AS PREC_CON_IVA
+FROM articulos
+WHERE PRECIO * 1.21 < 100000;
+
+-- SUBCONSULTA 
+SELECT * FROM 
+(SELECT ID, PRECIO,PRECIO * 1.21 AS PREC_CON_IVA
+FROM articulos) AS TABLA 
+WHERE PREC_CON_IVA < 100000;
+
+SELECT * FROM articulos
+
+-- CONTAR
+SELECT * FROM articulos
+GROUP BY categoria_id
+HAVING COUNT(categoria_id)>1
+
+-- AGRUPACION
+SELECT count(categoria_id) AS cat_id, categoria_id AS CANTIDAD
+ FROM articulos
+GROUP BY categoria_id
+HAVING count(categoria_id)>1;
+
+-- LIKE
+-- INICIE CON  'COM'
+SELECT * FROM articulos
+WHERE titulo LIKE 'COM%'
+
+-- TERMINE CON  'COM'
+SELECT * FROM articulos
+WHERE titulo NOT LIKE '%KE'
+
+-- CONTENGA 'TA'
+SELECT * FROM articulos
+WHERE titulo LIKE '%TA%'
+
+-- UPPER()
+SELECT * FROM articulos
+WHERE UPPER(titulo) LIKE  '%LL%'
+
+-- LOWER()
+SELECT * FROM articulos
+WHERE LOWER(titulo) LIKE  '%ll%'
+
+-- IN CON VARCHAR 
+SELECT * FROM articulos
+WHERE codigo IN('003','004')
+
+
+SELECT * FROM articulos
+SELECT * FROM categoria_id
+
+-- JOIN - UNION DE CAMPOS
+SELECT * FROM articulos
+JOIN categorias
+
+-- INNER JOIN
+SELECT ART.id,TITULO,PRECIO FROM articulos AS ART
+	INNER JOIN categorias CAT
+		ON ART.CATEGORIA_ID = CAT.id
+		
+-- LEFT JOIN		
+SELECT * FROM articulos ART 
+LEFT JOIN categorias CAT
+ON ART.categoria_id = CAT.id
+
+-- RIGHT JOIN		
+SELECT * FROM articulos ART 
+RIGHT JOIN categorias CAT
+ON ART.categoria_id = CAT.id
+
+-- ESPACIO EN BLANCO
+SELECT *FROM articulos
+WHERE TITULO LIKE '% %'
+
+SELECT * FROM articulos
+SELECT * FROM categorias
+SELECT * FROM MARCAS
+
+-- ARTICULOS QUE TENGAN LA CATEGORIA HABILITADA
+SELECT * FROM articulos ART
+	INNER JOIN categorias CAT
+		ON CAT.id = ART.categoria_id
+		INNER JOIN marcas MAR 
+		ON art.MARCA_ID = MAR.id
+	WHERE CAT.habilitada = 1
+	AND MAR.habilitada = 1
+
+-- ARTICULOS QUE TENGAN LA CATEGORIA HABILITADA FILTRADA
+SELECT ART.id,ART.titulo,ART.stock,
+CAT.descripcion,
+MAR.descripcion
+ FROM articulos ART
+	INNER JOIN categorias CAT
+		ON CAT.id = ART.categoria_id
+		INNER JOIN marcas MAR 
+		ON art.MARCA_ID = MAR.id
+	WHERE CAT.habilitada = 1
+	AND MAR.habilitada = 1
+	AND ART.precio BETWEEN  40000 AND 60000
+	
+-- MODIFICAR LA TABLA marcas, PARA AGREGAR CAMPO CUIT
+ALTER TABLE marcas ADD COLUMN CUIT VARCHAR (13) NOT NULL DEFAULT '123';
+
+-- SIN EL CAMPO CUIT DEFAULT
+ALTER TABLE marcas ADD COLUMN CUIT VARCHAR (13) NOT NULL
+
+--ELIMINAR UNA COLUMNA 
+ALTER TABLE marcas DROP COLUMN CUIT
+
+SELECT *FROM marcas
+
+UPDATE marcas SET CUIT = '00112233' WHERE ID = 1;
+UPDATE marcas SET CUIT = '00112244' WHERE ID = 2;
+UPDATE marcas SET CUIT = '00112255' WHERE ID = 3;
+UPDATE marcas SET CUIT = '00112266' WHERE ID = 4;
+UPDATE marcas SET CUIT = '00112277' WHERE ID = 5;
+UPDATE marcas SET CUIT = '00112288' WHERE ID = 6;
+
+ALTER TABLE marcas ADD CONSTRAINT UNIQUE (CUIT);
+
+-- PAGINADO
+SELECT * FROM articulos
+
+-- PRIMEROS X REGISTROS
+SELECT * FROM articulos LIMIT 2 OFFSET 2
+
+-- PAGINAS EN TOTAL
+SELECT COUNT(ID)/2 FROM articulos
+
+SELECT * FROM articulos 
+LIMIT 2 
+OFFSET 2
+
