@@ -95,5 +95,29 @@ public class CategoriasDaoMysqlImpl extends JDBCBaseDao<Categorias> implements C
 
 	}
 
+	@Override
+	public String getSaveSQL() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void saveData(Categorias entity, PreparedStatement pst) throws SQLException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String updateSQL(Categorias entity) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void saveUpdateData(Categorias entity, PreparedStatement pst) throws SQLException {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
 //seguir cap 30 1:20

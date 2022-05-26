@@ -4,11 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Date;
+
 import ar.com.educacionit.daos.ArticuloDao;
 import ar.com.educacionit.daos.db.AdministradorDeConexiones;
-import ar.com.educacionit.daos.db.exceptions.DuplicatedException;
 import ar.com.educacionit.daos.db.exceptions.GenericException;
 import ar.com.educacionit.domain.Articulo;
 
@@ -20,112 +19,76 @@ public class ArticuloDaoMysqlImpl extends JDBCBaseDao<Articulo> implements Artic
 	}
 
 	@Override
-	public void save(Articulo articulo) throws DuplicatedException, GenericException {// ctrl+f
-		try (Connection con2 = AdministradorDeConexiones.obtenerConexion()) {
-
-			StringBuffer sql = new StringBuffer(
-					"INSERT INTO ARTICULOS (TITULO,CODIGO, PRECIO, CATEGORIA_ID, MARCA_ID,FECHA_CREACION,STOCK) VALUES(");
-			sql.append("?,?,?,?,?,?,?)");
-
-			try (PreparedStatement st = con2.prepareStatement(sql.toString(),
-					PreparedStatement.RETURN_GENERATED_KEYS)) {
-
-				st.setString(1, articulo.getTitulo());
-				st.setString(2, articulo.getCodigo());
-				st.setDouble(3, articulo.getPrecio());
-				st.setLong(4, articulo.getCategoriasId());
-				st.setLong(5, articulo.getMarcaId());
-				st.setDate(6, new java.sql.Date(System.currentTimeMillis()));// java.sql.Date
-				st.setLong(7, articulo.getStock());
-
-				st.execute();
-
-				try (ResultSet rs = st.getGeneratedKeys()) {
-
-					if (rs.next()) {
-
-						Long id = rs.getLong(1);
-
-						articulo.setId(id);
-					}
-				}
-			}
-		} catch (SQLException se) {
-			if (se instanceof SQLIntegrityConstraintViolationException) {
-				throw new DuplicatedException("No se ha podido insertar el articulo, integridad de datos violada", se);
-			}
-			throw new GenericException(se.getMessage(), se);
-		} catch (GenericException ge) {
-			throw new GenericException(ge.getMessage(), ge);
-		}
+	public String getSaveSQL() {
+		return ("(TITULO,CODIGO, PRECIO, CATEGORIA_ID, MARCA_ID,FECHA_CREACION,STOCK) VALUES (?,?,?,?,?,?,?)");
 
 	}
 
 	@Override
-	public void update(Articulo ArticuloToUpdate) throws GenericException {
+	public void saveData(Articulo entity, PreparedStatement pst) throws SQLException {
 
-		StringBuffer sql = new StringBuffer("UPDATE ARTICULOS SET ");
+		pst.setString(1, entity.getTitulo());
+		pst.setString(2, entity.getCodigo());
+		pst.setDouble(3, entity.getPrecio());
+		pst.setLong(4, entity.getCategoriasId());
+		pst.setLong(5, entity.getMarcaId());
+		pst.setDate(6, new java.sql.Date(System.currentTimeMillis()));// java.sql.Date
+		pst.setLong(7, entity.getStock());
 
-		if (ArticuloToUpdate.getTitulo() != null) {
+	}
+
+	@Override
+	public String updateSQL(Articulo entity) {
+
+		StringBuffer sql = new StringBuffer();
+
+		if (entity.getTitulo() != null) {
 			sql.append("titulo=?").append(", ");
 		}
 
-		if (ArticuloToUpdate.getCodigo() != null) {
+		if (entity.getCodigo() != null) {
 			sql.append("codigo=?").append(", "); // respetar los espacios en las sentencias.
 		}
-		if (ArticuloToUpdate.getPrecio() != null) {
+		if (entity.getPrecio() != null) {
 			sql.append("precio=?").append(", ");
 		}
-		if (ArticuloToUpdate.getStock() != null) {
+		if (entity.getStock() != null) {
 			sql.append("stock=?").append(", ");
 		}
-		if (ArticuloToUpdate.getMarcaId() != null) {
+		if (entity.getMarcaId() != null) {
 			sql.append("marca_id=?").append(", ");
 		}
-		if (ArticuloToUpdate.getCategoriasId() != null) {
+		if (entity.getCategoriasId() != null) {
 			sql.append("categoria_id=?").append(",");
 		}
 
-		sql = new StringBuffer(sql.substring(0, sql.length() - 1));
-		sql.append(" WHERE id= ?");
+		return sql.substring(0, sql.length() - 1).toString();
 
-		try (Connection con2 = AdministradorDeConexiones.obtenerConexion()) {
-			// auto commit en false
-			// si se realizo la conexion entoces:
-			// 2_abrir un statement > Statement
-			try (PreparedStatement st = con2.prepareStatement(sql.toString())) {
+	}
 
-				// puedo setear atributo = valor con el tipo correcto
-				// ejecuto la sentencia de la db
-				if (ArticuloToUpdate.getTitulo() != null) {
-					st.setString(1, ArticuloToUpdate.getTitulo());
-				}
-				if (ArticuloToUpdate.getCodigo() != null) {
-					st.setString(2, ArticuloToUpdate.getCodigo());
-				}
-				if (ArticuloToUpdate.getPrecio() != null) {
-					st.setDouble(3, ArticuloToUpdate.getPrecio());
-				}
-				if (ArticuloToUpdate.getStock() != null) {
-					st.setLong(4, ArticuloToUpdate.getStock());
-				}
-				if (ArticuloToUpdate.getMarcaId() != null) {
-					st.setLong(5, ArticuloToUpdate.getMarcaId());
-				}
-				if (ArticuloToUpdate.getCategoriasId() != null) {
-					st.setLong(6, ArticuloToUpdate.getCategoriasId());
-				}
-				st.setLong(7, ArticuloToUpdate.getId());
+	@Override
+	public void saveUpdateData(Articulo entity, PreparedStatement pst) throws SQLException {
 
-				st.execute();
-			}
-
-		} catch (GenericException ge) {
-			throw new GenericException(ge.getMessage(), ge);
-
-		} catch (SQLException se) {
-			throw new GenericException(se.getMessage(), se);
+		if (entity.getTitulo() != null) {
+			pst.setString(1, entity.getTitulo());
 		}
+		if (entity.getCodigo() != null) {
+			pst.setString(2, entity.getCodigo());
+		}
+		if (entity.getPrecio() != null) {
+			pst.setDouble(3, entity.getPrecio());
+		}
+		if (entity.getStock() != null) {
+			pst.setLong(4, entity.getStock());
+		}
+		if (entity.getMarcaId() != null) {
+			pst.setLong(5, entity.getMarcaId());
+		}
+		if (entity.getCategoriasId() != null) {
+			pst.setLong(6, entity.getCategoriasId());
+		}
+
+		pst.setLong(7, entity.getId());
 
 	}
 

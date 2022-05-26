@@ -1,8 +1,10 @@
 package ar.com.educacionit.daos.impl;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,8 +13,9 @@ import ar.com.educacionit.daos.GenericDao;
 import ar.com.educacionit.daos.db.AdministradorDeConexiones;
 import ar.com.educacionit.daos.db.exceptions.DuplicatedException;
 import ar.com.educacionit.daos.db.exceptions.GenericException;
+import ar.com.educacionit.domain.Entity;
 
-public abstract class JDBCBaseDao<T> implements GenericDao<T> {
+public abstract class JDBCBaseDao<T extends Entity> implements GenericDao<T> {
 
 	protected String tabla;
 
@@ -45,12 +48,6 @@ public abstract class JDBCBaseDao<T> implements GenericDao<T> {
 	}
 
 	@Override
-	public void save(T orden) throws GenericException, DuplicatedException {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public T getByPK(Long id) throws GenericException {
 		String sql = "SELECT * FROM " + this.tabla + " WHERE ID =" + id;
 
@@ -73,33 +70,107 @@ public abstract class JDBCBaseDao<T> implements GenericDao<T> {
 		 */
 	}
 
-	@Override
-	public void update(T ordenToUpdate) throws GenericException {
-		// TODO Auto-generated method stub
+	public abstract String getSaveSQL();
 
+	public abstract void saveData(T entity, PreparedStatement pst) throws SQLException;
+
+	@Override
+	public void save(T entity) throws GenericException, DuplicatedException {
+		try (Connection con2 = AdministradorDeConexiones.obtenerConexion()) {
+
+			StringBuffer sql = new StringBuffer("INSERT INTO ").append(this.tabla).append(this.getSaveSQL());
+			StringBuffer sql2 = new StringBuffer("INSERT INTO ").append(this.tabla).append(this.getSaveSQL2(entity));
+			try (PreparedStatement st = con2.prepareStatement(sql.toString(),
+					PreparedStatement.RETURN_GENERATED_KEYS)) {
+
+				this.saveData(entity, st);
+
+				st.execute();
+
+				try (ResultSet rs = st.getGeneratedKeys()) {
+
+					if (rs.next()) {
+
+						Long id = rs.getLong(1);
+
+						entity.setId(id);
+					}
+				}
+			}
+		} catch (SQLException se) {
+			if (se instanceof SQLIntegrityConstraintViolationException) {
+				throw new DuplicatedException("No se ha podido insertar el articulo, integridad de datos violada", se);
+			}
+			throw new GenericException(se.getMessage(), se);
+		} catch (GenericException ge) {
+			throw new GenericException(ge.getMessage(), ge);
+		}
+	}
+
+	private Object getSaveSQL2(T entity) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public abstract String updateSQL(T entity);
+
+	public abstract void saveUpdateData(T entity, PreparedStatement pst) throws SQLException;
+
+	@Override
+	public void update(T entity) throws GenericException {
+
+		String sql = " UPDATE " + this.tabla + " SET " + updateSQL(entity) + " WHERE id= ?";
+
+		int idx = getWhereIndex(sql);
+
+		try (Connection con2 = AdministradorDeConexiones.obtenerConexion()) {
+			try (PreparedStatement st = con2.prepareStatement(sql)) {
+
+				this.saveUpdateData(entity, st);
+				st.setLong(idx, entity.getId());
+				st.execute();
+			}
+
+		} catch (GenericException ge) {
+			throw new GenericException(ge.getMessage(), ge);
+
+		} catch (SQLException se) {
+			throw new GenericException(se.getMessage(), se);
+		}
+
+	}
+
+	// determina el indice del where en un update
+	private int getWhereIndex(String sql) {
+		int idx = 0;
+		for (char c : sql.toString().toCharArray()) {
+			if (c == '?') {
+				idx++;
+			}
+		}
+		return idx;
 	}
 
 	@Override
 	public void delete(Long id) throws GenericException {
-				String sql = "DELETE FROM " + this.tabla +" WHERE ID =" + id;
-				
-			try(Connection con2 =AdministradorDeConexiones.obtenerConexion();
-				Statement st = con2.createStatement()) {
-				
-						st.executeLargeUpdate(sql);
-						
-				} catch (GenericException ge) {
-					throw new GenericException(sql, ge);
+		String sql = "DELETE FROM " + this.tabla + " WHERE ID =" + id;
 
-				} catch (SQLException se) {
-					throw new GenericException(sql, se);
-				}
+		try (Connection con2 = AdministradorDeConexiones.obtenerConexion(); Statement st = con2.createStatement()) {
+
+			st.executeLargeUpdate(sql);
+
+		} catch (GenericException ge) {
+			throw new GenericException(sql, ge);
+
+		} catch (SQLException se) {
+			throw new GenericException(sql, se);
+		}
 	}
-	
+
 	@Override
 	public List<T> findPageable(Integer currentPage, Integer size) throws GenericException {
 		List<T> registros = new ArrayList<>();
-		String sql = "SELECT * FROM " + this.tabla+ " LIMIT "+ size+ " OFFSET "+ (currentPage -1);
+		String sql = "SELECT * FROM " + this.tabla + " LIMIT " + size + " OFFSET " + (currentPage - 1);
 
 		try (Connection con2 = AdministradorDeConexiones.obtenerConexion();
 				Statement st = con2.createStatement();
@@ -118,16 +189,5 @@ public abstract class JDBCBaseDao<T> implements GenericDao<T> {
 	}
 
 	public abstract T fromResultSetToEntity(ResultSet rs) throws SQLException;
-	/*
-	 * // extraer los datos que vienen en el resultset rs // convertir el resulseta
-	 * Categorias Long idCategorias = rs.getLong("id"); String titulo =
-	 * rs.getString("titulo"); String codigo = rs.getString("codigo"); Date
-	 * fechaCreacion = rs.getDate("fecha_creacion"); Double precio =
-	 * rs.getDouble("precio"); Long stock = rs.getLong("stock"); Long marcasID =
-	 * rs.getLong("marca_id"); Long categoriasId = rs.getLong("categoria_id");
-	 * 
-	 * return new Categorias(idCategorias, titulo, codigo, fechaCreacion, precio,
-	 * stock, marcasID,categoriasId);
-	 */
 
 }
