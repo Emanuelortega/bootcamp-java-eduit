@@ -18,10 +18,8 @@ public class ArticuloDaoMysqlImpl extends JDBCBaseDao<Articulo> implements Artic
 		super("articulos");
 	}
 
-	@Override
 	public String getSaveSQL() {
 		return ("(TITULO,CODIGO, PRECIO, CATEGORIA_ID, MARCA_ID,FECHA_CREACION,STOCK) VALUES (?,?,?,?,?,?,?)");
-
 	}
 
 	@Override
@@ -29,11 +27,11 @@ public class ArticuloDaoMysqlImpl extends JDBCBaseDao<Articulo> implements Artic
 
 		pst.setString(1, entity.getTitulo());
 		pst.setString(2, entity.getCodigo());
-		pst.setDouble(3, entity.getPrecio());
-		pst.setLong(4, entity.getCategoriasId());
-		pst.setLong(5, entity.getMarcaId());
-		pst.setDate(6, new java.sql.Date(System.currentTimeMillis()));// java.sql.Date
-		pst.setLong(7, entity.getStock());
+		pst.setDate(3, new java.sql.Date(System.currentTimeMillis()));// java.sql.Date
+		pst.setDouble(4, entity.getPrecio());
+		pst.setLong(5, entity.getStock());
+		pst.setLong(6, entity.getMarcaId());
+		pst.setLong(7, entity.getCategoriasId());
 
 	}
 

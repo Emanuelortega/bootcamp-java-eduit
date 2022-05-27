@@ -74,29 +74,64 @@ public abstract class JDBCBaseDao<T extends Entity> implements GenericDao<T> {
 
 	public abstract void saveData(T entity, PreparedStatement pst) throws SQLException;
 
-	@Override
-	public void save(T entity) throws GenericException, DuplicatedException {
-		try (Connection con2 = AdministradorDeConexiones.obtenerConexion()) {
+	private String getSaveSql2(T entity) throws SQLException, GenericException {
 
-			StringBuffer sql = new StringBuffer("INSERT INTO ").append(this.tabla).append(this.getSaveSQL());
-			StringBuffer sql2 = new StringBuffer("INSERT INTO ").append(this.tabla).append(this.getSaveSQL2(entity));
-			try (PreparedStatement st = con2.prepareStatement(sql.toString(),
-					PreparedStatement.RETURN_GENERATED_KEYS)) {
+		String sqlgetColum = "SHOW COLUMNS FROM " + this.tabla;
+		StringBuffer sql = new StringBuffer(" INSERT INTO " + this.tabla + " ( ");
 
-				this.saveData(entity, st);
+		try (Connection con2 = AdministradorDeConexiones.obtenerConexion();
+				Statement st = con2.createStatement();
+				ResultSet rs = st.executeQuery(sqlgetColum)) {
 
-				st.execute();
+			int columnID = 0;
+			while (rs.next()) {
 
-				try (ResultSet rs = st.getGeneratedKeys()) {
-
-					if (rs.next()) {
-
-						Long id = rs.getLong(1);
-
-						entity.setId(id);
-					}
+				if (columnID == 0) {
+					columnID++;
+					continue;
+				} else {
+					sql.append(rs.getString("Field")).append(",");
+					columnID++;
 				}
 			}
+
+			sql = new StringBuffer(sql.substring(0, sql.length() - 1));
+			sql.append(" ) Values (");
+
+			for (int a = 0; a < columnID - 1; a++) {
+				sql.append("?,");
+			}
+
+			sql = new StringBuffer(sql.substring(0, sql.length() - 1)).append(")");
+		}
+
+		return sql.toString();
+
+	}
+
+	
+	//prueba en app-web/ar.com.educacionit.web.controllers/Savecontroller
+	
+	@Override
+	public void save(T entity) throws GenericException, DuplicatedException, SQLException {
+
+		String sql = getSaveSql2(entity);
+
+		try (Connection con2 = AdministradorDeConexiones.obtenerConexion();
+				PreparedStatement st = con2.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
+
+			this.saveData(entity, st);
+
+			st.execute();
+
+			try (ResultSet rs = st.getGeneratedKeys()) {
+				if (rs.next()) {
+
+					Long id = rs.getLong(1);
+					entity.setId(id);
+				}
+			}
+
 		} catch (SQLException se) {
 			if (se instanceof SQLIntegrityConstraintViolationException) {
 				throw new DuplicatedException("No se ha podido insertar el articulo, integridad de datos violada", se);
@@ -105,11 +140,6 @@ public abstract class JDBCBaseDao<T extends Entity> implements GenericDao<T> {
 		} catch (GenericException ge) {
 			throw new GenericException(ge.getMessage(), ge);
 		}
-	}
-
-	private Object getSaveSQL2(T entity) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	public abstract String updateSQL(T entity);

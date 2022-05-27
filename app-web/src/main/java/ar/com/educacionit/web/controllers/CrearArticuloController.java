@@ -1,5 +1,6 @@
 package ar.com.educacionit.web.controllers;
 
+import java.sql.SQLException;
 import java.util.Scanner;
 
 import ar.com.educacionit.domain.Articulo;
@@ -9,7 +10,7 @@ import ar.com.educacionit.services.impl.ArticulosServiceImpl;
 
 public class CrearArticuloController {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws  SQLException {
 
 		Scanner teclado = new Scanner(System.in);
 

@@ -1,5 +1,6 @@
 package ar.com.educacionit.services.impl;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import ar.com.educacionit.daos.GenericDao;
@@ -57,7 +58,7 @@ public abstract class AbstractBaseService<T> implements GenericService<T> {
 	}
 
 	@Override
-	public void create(T nuevo) throws ServiceException {
+	public void create(T nuevo) throws ServiceException, SQLException {
 		try {
 			 dao.save(nuevo);
 		} catch (GenericException | DuplicatedException e) {

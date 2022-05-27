@@ -4,11 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.SQLIntegrityConstraintViolationException;
 
 import ar.com.educacionit.daos.CategoriaDao;
 import ar.com.educacionit.daos.db.AdministradorDeConexiones;
-import ar.com.educacionit.daos.db.exceptions.DuplicatedException;
 import ar.com.educacionit.daos.db.exceptions.GenericException;
 import ar.com.educacionit.domain.Categorias;
 
@@ -18,40 +16,7 @@ public class CategoriasDaoMysqlImpl extends JDBCBaseDao<Categorias> implements C
 		super("categorias");
 	}
 
-	@Override
-	public void save(Categorias Categorias) throws DuplicatedException, GenericException {// ctrl+f
-		try (Connection con2 = AdministradorDeConexiones.obtenerConexion()) {
-
-			StringBuffer sql = new StringBuffer(
-					"INSERT INTO CategoriasS (TITULO,CODIGO, PRECIO, CATEGORIA_ID, MARCA_ID,FECHA_CREACION,STOCK) VALUES(");
-			sql.append("?,?,?,?,?,?,?)");
-
-			try (PreparedStatement st = con2.prepareStatement(sql.toString(),
-					PreparedStatement.RETURN_GENERATED_KEYS)) {
-
-				st.execute();
-
-				try (ResultSet rs = st.getGeneratedKeys()) {
-
-					if (rs.next()) {
-
-						Long id = rs.getLong(1);
-
-						Categorias.setId(id);
-					}
-				}
-			}
-		} catch (SQLException se) {
-			if (se instanceof SQLIntegrityConstraintViolationException) {
-				throw new DuplicatedException("No se ha podido insertar el Categorias, integridad de datos violada",
-						se);
-			}
-			throw new GenericException(se.getMessage(), se);
-		} catch (GenericException ge) {
-			throw new GenericException(ge.getMessage(), ge);
-		}
-
-	}
+	
 
 	@Override
 	public void update(Categorias CategoriasToUpdate) throws GenericException {
@@ -95,11 +60,6 @@ public class CategoriasDaoMysqlImpl extends JDBCBaseDao<Categorias> implements C
 
 	}
 
-	@Override
-	public String getSaveSQL() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public void saveData(Categorias entity, PreparedStatement pst) throws SQLException {
@@ -119,5 +79,15 @@ public class CategoriasDaoMysqlImpl extends JDBCBaseDao<Categorias> implements C
 		
 	}
 
+
+
+	@Override
+	public String getSaveSQL() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+		
+	
+
 }
-//seguir cap 30 1:20
