@@ -43,10 +43,11 @@ public class ArticuloDaoMysqlImpl extends JDBCBaseDao<Articulo> implements Artic
 		if (entity.getTitulo() != null) {
 			sql.append("titulo=?").append(", ");
 		}
-
+/*
 		if (entity.getCodigo() != null) {
 			sql.append("codigo=?").append(", "); // respetar los espacios en las sentencias.
 		}
+*/		
 		if (entity.getPrecio() != null) {
 			sql.append("precio=?").append(", ");
 		}
@@ -67,26 +68,28 @@ public class ArticuloDaoMysqlImpl extends JDBCBaseDao<Articulo> implements Artic
 	@Override
 	public void saveUpdateData(Articulo entity, PreparedStatement pst) throws SQLException {
 
+		int idx = 1;
 		if (entity.getTitulo() != null) {
-			pst.setString(1, entity.getTitulo());
+			pst.setString(idx++, entity.getTitulo());
 		}
-		if (entity.getCodigo() != null) {
+	/*	if (entity.getCodigo() != null) {
 			pst.setString(2, entity.getCodigo());
 		}
+	*/
 		if (entity.getPrecio() != null) {
-			pst.setDouble(3, entity.getPrecio());
+			pst.setDouble(idx++, entity.getPrecio());
 		}
 		if (entity.getStock() != null) {
-			pst.setLong(4, entity.getStock());
+			pst.setLong(idx++, entity.getStock());
 		}
 		if (entity.getMarcaId() != null) {
-			pst.setLong(5, entity.getMarcaId());
+			pst.setLong(idx++, entity.getMarcaId());
 		}
 		if (entity.getCategoriasId() != null) {
-			pst.setLong(6, entity.getCategoriasId());
+			pst.setLong(idx++, entity.getCategoriasId());
 		}
 
-		pst.setLong(7, entity.getId());
+		pst.setLong(idx++, entity.getId());
 
 	}
 
