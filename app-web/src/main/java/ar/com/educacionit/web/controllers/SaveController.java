@@ -13,7 +13,7 @@ public class SaveController {
 	public static void main(String[] args) throws ServiceException, IllegalArgumentException, IllegalAccessException, SQLException {
 
 	
-		Articulo articulo = new Articulo("carpeta", "55664",new Date(), 200d,15l,2l,3l);
+		Articulo articulo = new Articulo("carpeta", "5566465",new Date(), 200d,15l,2l,3l);
 		ArticulosService service = new ArticulosServiceImpl();
 		
 		service.create(articulo);
