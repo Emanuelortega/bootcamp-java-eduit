@@ -4,6 +4,19 @@
 
 	<head>
 		<title>Titulo de la pagina </title>
+			<style>
+
+				/*
+				primera forma de aplicar CSS:INTERNO(aplicado en el mismo arch.HTML)
+				por nombre de la etiqueta
+				*/
+				mark{
+					/*propiedad:valor*/
+					background-color:  brown;
+				}
+			</style>
+			<!--*3ra forma de aplicar CSS:EXTERNA-->
+			<link rel="stylesheet" href="styles.css">
 
 	</head>
 
@@ -23,11 +36,36 @@
 	</nav>
 	
 	<main>
-	<mark>contenido principal de la aplicacion</mark>
+		<!--2da forma de APLICAR (CSS) un style inline-->
+		<mark style="background-color:aqua ;">contenido principal de la aplicacion</mark>
 	
 		<section>
 			<ins>define una seccion del contenido</ins>		
 		</section>
+		<section class="sectionCuston">
+			<h3>Selector por clase</h3>
+			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Neque dicta dolorem ut quasi voluptatum maxime voluptates facere ullam et. Aspernatur eos odit neque nesciunt dolores consequatur facere ipsam! Dolore, animi.</p>
+
+		</section>
+
+		<section id="sectionCustonid">
+			<h3>Selector por id</h3>
+			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Neque dicta dolorem ut quasi voluptatum maxime voluptates facere ullam et. Aspernatur eos odit neque nesciunt dolores consequatur facere ipsam! Dolore, animi.</p>
+
+		</section>
+		
+		<!--crear clases para no duplicar codigo-->
+		<!--contenedor de elementos-->
+		<div class="divBloque">
+			<h3>soy un h3</h3>
+			<p>Soy un bloque</p>
+
+		</div>
+		<div class="divBloque">
+			<h3>soy un h3</h3>
+			<p>Soy un bloque</p>
+
+		</div>
 	</main>
 	
 	<aside>
