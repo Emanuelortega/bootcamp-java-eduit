@@ -30,20 +30,20 @@ public class MenuRecursivo {
 
 	private static List<Menu> getMenuFromDB() {
 		List<Menu> subMenu = new ArrayList<Menu>();
-		Menu html = new Menu("HTML",new ArrayList<>(), false);
+		Menu html = new Menu("HTML",new ArrayList<>(), false,"http/prueba");
 		subMenu.add(html);
 		
-		Menu references = new Menu("References", subMenu, true);
+		Menu references = new Menu("References", subMenu, true,"http/prueba");
 		
-		Menu hijosGuides = new Menu("H1",new  ArrayList<>(), false);
+		Menu hijosGuides = new Menu("H1",new  ArrayList<>(), false,"http/prueba");
 		List<Menu> subMenuHG = new ArrayList<Menu>();
 		subMenuHG.add(hijosGuides);
 		
 		subMenu = new ArrayList<>();
-		Menu mdn = new Menu("MDN",subMenuHG, false);
+		Menu mdn = new Menu("MDN",subMenuHG, false,"http/prueba");
 		subMenu.add(mdn);
 		
-		Menu guides = new Menu("Guides", subMenu, true);
+		Menu guides = new Menu("Guides", subMenu, true,"http/prueba");
 		
 		
 		List<Menu> menus = new ArrayList<>();

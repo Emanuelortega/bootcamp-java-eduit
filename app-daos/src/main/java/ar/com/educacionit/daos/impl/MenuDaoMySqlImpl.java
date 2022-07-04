@@ -18,8 +18,9 @@ public class MenuDaoMySqlImpl extends JDBCBaseDao<Menu> implements MenuDao{
 		String descripcion = rs.getString("menu");
 		Long root = rs.getLong("root");
 		Long idMenuPadre= rs.getLong("id_menu_padre");
+		String link = rs.getString("link");
 		
-		return new Menu(id, descripcion, root.equals(1L), idMenuPadre);
+		return new Menu(id, descripcion, root.equals(1L), idMenuPadre,link);
 	}
 
 	
