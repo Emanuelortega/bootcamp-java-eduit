@@ -5,7 +5,6 @@ import java.util.Collection;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -13,9 +12,11 @@ import ar.com.educacionit.domain.Articulo;
 import ar.com.educacionit.services.ArticulosService;
 import ar.com.educacionit.services.exceptions.ServiceException;
 import ar.com.educacionit.services.impl.ArticulosServiceImpl;
+import ar.com.educacionit.web.enums.AttributesEnum;
+import ar.com.educacionit.web.enums.ViewsEnum;
 //con la anotacion se convierte en un controller
 @WebServlet("/controller/AltaFormularioServlet") 
-public class AltaFormularioSerlet extends HttpServlet {
+public class AltaFormularioSerlet extends BaseServlet {
 	
 	private static final long serialVersionUID = -8914752493706445530L;
 
@@ -37,16 +38,18 @@ public class AltaFormularioSerlet extends HttpServlet {
 		//ir a otra pagina(redireccionar)
 
 		ArticulosService ar = new ArticulosServiceImpl();
+		//asumo una vista target
+		ViewsEnum target = ViewsEnum.REGISTRO_OK;
 		
 		try {
 			Collection<Articulo> list = ar.finAll();
-			request.setAttribute("articulos", list);
-			// si sale todo ok lo mando a:
-			getServletContext().getRequestDispatcher("/registroOk.jsp").forward(request, response);
+			//request.setAttribute(AttributesEnum.ARTICULOS.getValue(), list);
+			setAttributes(AttributesEnum.ARTICULOS, request, list);
 		} catch (ServiceException e) {
 			//si sale mal lo 
-			getServletContext().getRequestDispatcher("/registroFail.jsp").forward(request, response);
+			target = ViewsEnum.REGISTRO_FAIL;
 		}
+		redirect(target, request,response);
 	}
 	
 	
