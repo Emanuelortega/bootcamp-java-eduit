@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <script>
+    function builTable() {
+      const datos = '';
+      axios.get(' https://pokeapi.co/api/v2/pokemon/ditto')
+
+        .then(function (response) {
+          list(response.data);
+        })
+        .catch(function (error) {
+          console.log(error);
+        })
+        .then(function () {
+          console.log('ejecutando')
+        });
+    }
+
+    function list(response) {
+      const divForm = document.getElementById('form');
+      const mapa = obtenerMap(response);
+      let dateList = '';
+
+
+      dateList +=
+        `
+            <img src="${response.sprites.front_default}" class="img-thumbnail col-3">
+            <img src="${response.sprites.other.dream_world.front_default}" class="img-thumbnail col-3" >
+            <img src="${response.sprites.other.home.front_default}" class="img-thumbnail col-3" >
+            <div>
+              <ul class="list-group">
+                `
+      {
+        for (let a of mapa.keys()) {
+          dateList += `
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  ${a}
+                  <span class="badge bg-primary rounded-pill">${mapa.get(a)}</span>
+                </li>
+                `
+        }
+      }
+      `
+              </ul>
+            </div>`
+      divForm.innerHTML = dateList;
+    }
+
+    function obtenerMap(data) {
+
+      const mapa = new Map()
+      mapa.set('Name', data.name)
+      mapa.set('ID', data.id)
+      mapa.set('Base experience', data.base_experience)
+      mapa.set('Height', data.height)
+      mapa.set('Is default', data.order)
+      mapa.set('Weight', data.weight)
+      return mapa;
+    }
+  </script>
+</head>
+
+<body onload="builTable()">
+  <main>
+    <div class="conteiner">
+      <div class="row">
+        <div id="form">
+
+
+        </div>
+      </div>
+    </div>
+  </main>
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+</html>
