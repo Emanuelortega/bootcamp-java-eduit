@@ -13,9 +13,9 @@
 		</main>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 	</body>
-	<script type="text/javascript" src="<%=request.getContextPath()%>/Components/Conteiner.js"></script>
-	<script type="text/javascript" src="<%=request.getContextPath()%>/Components/List.js"></script>
-	<script type="text/javascript" src="<%=request.getContextPath()%>/Components/Item.js"></script>
-	<script type="text/javascript" src="<%=request.getContextPath()%>/Components/App.js"></script>
-	<script type="text/javascript" src="<%=request.getContextPath()%>/Components/index.js"></script>
+	<script type="text/javascript" src="<%=request.getContextPath()%>/ejercicios/Components/Conteiner.js"></script>
+	<script type="text/javascript" src="<%=request.getContextPath()%>/ejercicios/Components/List.js"></script>
+	<script type="text/javascript" src="<%=request.getContextPath()%>/ejercicios/Components/Item.js"></script>
+	<script type="text/javascript" src="<%=request.getContextPath()%>/ejercicios/Components/App.js"></script>
+	<script type="text/javascript" src="<%=request.getContextPath()%>/ejercicios/Components/index.js"></script>
 </html>

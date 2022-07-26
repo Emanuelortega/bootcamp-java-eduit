@@ -24,5 +24,17 @@ public class MeliSite {
 	public String toString() {
 		return "MeliSite [defaultCurrencyId=" + defaultCurrencyId + ", id=" + id + ", name=" + name + "]";
 	}
+	public String getDefaultCurrencyId() {
+		return defaultCurrencyId;
+	}
+	public void setDefaultCurrencyId(String defaultCurrencyId) {
+		this.defaultCurrencyId = defaultCurrencyId;
+	}
+	public String getId() {
+		return id;
+	}
+	public String getName() {
+		return name;
+	}
 
 }

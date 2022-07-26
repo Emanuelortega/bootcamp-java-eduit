@@ -2,7 +2,9 @@ package ar.com.educacionit.web.enums;
 
 public enum AttributesEnum {
 
-	ARTICULOS("articulos")
+	ARTICULOS("pepe"), 
+	EXITO("exito"), 
+	ERROR_GENERAL("error")
 	;
 	
 	private String key;
