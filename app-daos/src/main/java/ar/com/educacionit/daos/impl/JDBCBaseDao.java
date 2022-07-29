@@ -119,10 +119,11 @@ public abstract class JDBCBaseDao<T extends Entity> implements GenericDao<T> {
 	@Override
 	public void save(T entity) throws GenericException, DuplicatedException, SQLException {
 
-		String sql = getSaveSql2(entity);
+		//String sql = getSaveSql2(entity);
+		StringBuffer sql = new StringBuffer("INSERT INTO ").append(this.tabla).append(this.getSaveSQL());
 
 		try (Connection con2 = AdministradorDeConexiones.obtenerConexion();
-				PreparedStatement st = con2.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
+				PreparedStatement st = con2.prepareStatement(sql.toString(), PreparedStatement.RETURN_GENERATED_KEYS)) {
 
 			this.saveData(entity, st);
 

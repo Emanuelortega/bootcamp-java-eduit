@@ -69,10 +69,12 @@
           });
 	}
 	
+	
 	function Categorias(categorias) {
 		debugger;
 		llenarLista('categorias',categorias);
 	}
+	
 	
 	function Marcas(categorias) {
 		llenarLista('marcas', categorias);		

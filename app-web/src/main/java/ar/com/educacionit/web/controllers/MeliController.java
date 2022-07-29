@@ -21,7 +21,7 @@ import ar.com.educacionit.web.jerseyclient.meli.MeliSiteRestExecutor;
 @WebServlet("/api/meli/MeliController")
 public class MeliController extends HttpServlet{
 
-	private static final long serialVersionUID = 4934233487013534076L;
+	//private static final long serialVersionUID = 4934233487013534076L;
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
