@@ -1,12 +1,11 @@
+import { BrowserRouter,Routes,Route, Link } from 'react-router-dom';
 import styles from './App.module.css';
-import { MovieGrid } from './Components/Movie.Grid';
-import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
+import { MovieGrid } from './Components/MovieGrid';
 import { MovieDetail } from './Components/MovieDetail';
-import { SearcMovie } from './Components/SearcMovie';
-
+import { Landing } from './Components/Landing';
 
 function App() {
-  console.log(styles);
+  // console.log(styles);
 
   return (
     <BrowserRouter>
@@ -14,26 +13,16 @@ function App() {
         <Link to={'/'}>
           <div>
             <h1 className={styles.title}>Peliculas</h1>
-            <SearcMovie/>
           </div>
         </Link>
       </header>
-
       <main>
         <Routes>
-          <Route path='/' element={<MovieGrid/>}/>
+          <Route path='/' element={<Landing/>}/>
           <Route path='/detail/:movieId' element={<MovieDetail/>}/>
         </Routes>
       </main>
-
     </BrowserRouter>
-
-
-
-
-
-
-
   );
 }
 
