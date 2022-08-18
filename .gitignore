@@ -89,3 +89,4 @@ local.properties
 
 # Codepro
 .codepro/
+node_modules

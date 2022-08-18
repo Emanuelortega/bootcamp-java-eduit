@@ -7,7 +7,7 @@ function App() {
   // console.log(styles);
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename='/app-web'>
       <header>
         <Link to={'/'}>
           <div>
