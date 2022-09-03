@@ -15,9 +15,13 @@
           	Crear Producto
           </a>
           -->
+         
           <a class="nav-link" href="<%=request.getContextPath()%>/controller/ListadoController">
           	Listado
           </a>
+        </li>
+        <li class="nav-item">
+         	 <a class="nav-link active" aria-current="page" href="<%=request.getContextPath()%>/views/upload.jsp">Upload</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">

@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import ar.com.educacionit.services.exceptions.ParseException;
 import ar.com.educacionit.services.parse.CSVFileParser;
-import ar.com.educacionit.services.parse.Producto;
+import ar.com.educacionit.services.parse.ArticuloDTO;
 import ar.com.educacionit.services.parse.XLSXFileParser;
 
 public class CSVFileParserTestCase {
@@ -18,7 +18,7 @@ public class CSVFileParserTestCase {
 	@Test
 	public void when_nullfilename_then_throw_exception() {
 		assertThrows(IllegalArgumentException.class,() ->{
-			new CSVFileParser(null);
+			new CSVFileParser("");
 		});
 	}
 	
@@ -44,14 +44,14 @@ public class CSVFileParserTestCase {
 	@Test
 	public void when_fileexists_then_verify_size() throws ParseException {
 		CSVFileParser parser = new CSVFileParser("C:\\desarrollo\\educationit\\clase39\\archivo.xlsx");
-		Collection<Producto> list = parser.parse();
+		Collection<ArticuloDTO> list = parser.parse();
 		assertEquals(2,list.size());
 	}
 	
 	@Test
 	public void when_xlsx_fileexists_then_verify_size() throws ParseException {
 		XLSXFileParser parser = new XLSXFileParser("C:\\desarrollo\\educationit\\clase39");
-		Collection<Producto> list = parser.parse();
+		Collection<ArticuloDTO> list = parser.parse();
 		assertEquals(2,list.size());
 	}
 }

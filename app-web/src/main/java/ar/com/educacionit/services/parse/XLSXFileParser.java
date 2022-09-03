@@ -16,15 +16,15 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import ar.com.educacionit.services.exceptions.ParseException;
 
-public class XLSXFileParser extends BaseFile implements IParser<Collection<Producto>> {
+public class XLSXFileParser extends BaseFile implements IParser<Collection<ArticuloDTO>> {
 
 	public XLSXFileParser(String filePath) {
 		super(filePath);
 	}
 
 	@Override
-	public Collection<Producto> parse() throws ParseException {
-		Collection<Producto> list = new ArrayList<>();
+	public Collection<ArticuloDTO> parse() throws ParseException {
+		Collection<ArticuloDTO> list = new ArrayList<>();
 		//Workbook
 		
 		//Sheet
@@ -51,7 +51,7 @@ public class XLSXFileParser extends BaseFile implements IParser<Collection<Produ
 				Iterator <Cell> itCells = row.cellIterator();
 				
 				while(itCells.hasNext()){
-					Producto p = productoFromCell(itCells);
+					ArticuloDTO p = productoFromCell(itCells);
 					list.add(p);
 				}
 			}
@@ -64,8 +64,8 @@ public class XLSXFileParser extends BaseFile implements IParser<Collection<Produ
 		
 	}
 
-	private Producto productoFromCell(Iterator<Cell> itCells) {
-		Producto p = new Producto();
+	private ArticuloDTO productoFromCell(Iterator<Cell> itCells) {
+		ArticuloDTO p = new ArticuloDTO();
 		
 		while(itCells.hasNext()) {
 			Cell cell = itCells.next();

@@ -1,13 +1,13 @@
 package ar.com.educacionit.services.parse;
 
-public class Producto {
+public class ArticuloDTO {
 	
 	private Long id;
 	private String title;
 	private String code;
 	private Double price;
 
-	public Producto(Long id, String title, String code, Double price) {
+	public ArticuloDTO(Long id, String title, String code, Double price) {
 		this.id = id;
 		this.title = title;
 		this.code = code;
@@ -16,7 +16,7 @@ public class Producto {
 		
 	}
 
-	public Producto() {
+	public ArticuloDTO() {
 		// TODO Auto-generated constructor stub
 	}
 
@@ -54,7 +54,7 @@ public class Producto {
 
 	@Override
 	public String toString() {
-		return "Producto [id=" + id + ", title=" + title + ", code=" + code + ", price=" + price + "]";
+		return "ArticuloDTO [id=" + id + ", title=" + title + ", code=" + code + ", price=" + price + "]";
 	}
 
 }
