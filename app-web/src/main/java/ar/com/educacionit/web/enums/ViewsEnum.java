@@ -11,6 +11,7 @@ public enum ViewsEnum {
 	LISTADO_CONTROLLER("/controller/ListadoController"),
 	UPLOAD_PREVIEW("/views/preview.jsp"), 
 	UPLOAD("/views/upload.jsp"),
+	RESULTADOS_PREVIEW("/views/resultadosPreview.jsp"), 
 	;
 	
 	private String value;

@@ -1,10 +1,29 @@
 package ar.com.educacionit.web.enums;
 
-public class PDFAction implements IFormato {
+import java.io.Serializable;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+
+import ar.com.educacionit.domain.Articulo;
+
+public class PDFAction implements IExportable {
 
 	@Override
-	public void doAction() {
-		System.out.println("convirtiendo a " + getClass().getCanonicalName());
+	public String exportar(Collection<Serializable> datos) {
+		
+		//obtener el jasper
+		
+		//armar los datos que son parametros
+		
+		Map<String , String> params = new HashMap<>();
+		params.put("USERNAME","EMANUEL");
+		
+		//armar los datos de la lista > field
+		
+		//llenar el jasper
+		
+		return "";
 	}
-
 }
+
