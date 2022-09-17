@@ -23,7 +23,6 @@ import ar.com.educacionit.services.impl.MarcasServiceImpl;
 
 @WebServlet("/api/AltaDatosController")
 public class AltaDatosController extends HttpServlet {
-	private static final long serialVersionUID = 6607119373393313299L;
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

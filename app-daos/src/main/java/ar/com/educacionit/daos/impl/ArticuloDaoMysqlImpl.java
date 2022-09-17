@@ -19,7 +19,7 @@ public class ArticuloDaoMysqlImpl extends JDBCBaseDao<Articulo> implements Artic
 	}
 
 	public String getSaveSQL() {
-		return ("(TITULO,CODIGO, PRECIO, CATEGORIA_ID, MARCA_ID,FECHA_CREACION,STOCK) VALUES (?,?,?,?,?,?,?)");
+		return ("(TITULO,CODIGO, PRECIO, CATEGORIAS_ID, MARCAS_ID,FECHA_CREACION,STOCK) VALUES (?,?,?,?,?,?,?)");
 	}
 
 	@Override
@@ -126,8 +126,8 @@ public class ArticuloDaoMysqlImpl extends JDBCBaseDao<Articulo> implements Artic
 		Date fechaCreacion = rs.getDate("fecha_creacion");
 		Double precio = rs.getDouble("precio");
 		Long stock = rs.getLong("stock");
-		Long marcasID = rs.getLong("marca_id");
-		Long categoriasId = rs.getLong("categoria_id");
+		Long marcasID = rs.getLong("marcas_id");
+		Long categoriasId = rs.getLong("categorias_id");
 
 		return new Articulo(idArticulo, titulo, codigo, fechaCreacion, precio, stock, marcasID, categoriasId);
 

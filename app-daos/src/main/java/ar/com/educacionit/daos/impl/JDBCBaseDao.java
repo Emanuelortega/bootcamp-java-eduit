@@ -29,7 +29,7 @@ public abstract class JDBCBaseDao<T extends Entity> implements GenericDao<T> {
 	@Override
 	public List<T> findAll() throws GenericException {
 		List<T> registros = new ArrayList<>();
-		String sql = "SELECT * FROM " + this.tabla;
+		String sql = " SELECT * FROM " + this.tabla;
 
 		try (Connection con2 = AdministradorDeConexiones.obtenerConexion();
 				Statement st = con2.createStatement();
@@ -42,7 +42,7 @@ public abstract class JDBCBaseDao<T extends Entity> implements GenericDao<T> {
 			return registros;
 
 		} catch (SQLException e) {
-			throw new GenericException("Error ejecutando" + sql, e);
+			throw new GenericException("Error ejecutando " + sql, e);
 		}
 
 	}
