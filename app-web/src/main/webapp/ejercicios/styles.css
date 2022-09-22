@@ -1,0 +1,70 @@
+@import url('https://fonts.googleapis.com/css2? family= Fascinate & display=swap');
+/*
+ARCHIVO CSS
+*/
+
+mark{
+    background-color: beige; /*color de la letra*/
+    font-size: 50px; /* tamaño de la letra*/
+    text-decoration-line: line-through;
+}
+
+body{
+    /*background-image: url(losSimpson.jpg) ;*/ /*fonde de los simpsons*/
+    background-color: aqua;
+}
+
+section{
+    background-color: blueviolet;
+}
+
+/* select por clase
+.nombreClase{
+    defino lo q quiero hacer
+}
+*/
+
+.sectionCuston{
+    background-color: white
+}
+
+/* select por id
+#nombreSelecId{
+    defino lo q quiero hacer
+}
+*/
+
+#sectionCustonid{
+    background-color: brown;
+}
+
+/* selector universal */
+*{
+    /*font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    */
+    font-family: 'Fascinate', cursive; /*tipo de letra descargada desde google fonts*/
+
+}
+
+/*voy a tomar los "div" y a los "p"  le doy estilos particulares*/
+/*relacion herencia padre e hijo*/
+.divBloque{
+    border: thin solid;
+    background-color: blueviolet;
+}
+
+.divBloque p{
+    font-size: 30px;
+    color: blue;
+    text-decoration-line:underline ;
+}
+
+/* centrar texto
+h2{
+    text-align: center;
+}
+
+1:03
+*/

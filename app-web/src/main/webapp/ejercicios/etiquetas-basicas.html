@@ -1,0 +1,100 @@
+<!-- html 5 -->
+<!DOCTYPE>
+<html>
+
+	<head>
+		<title>Titulo de la pagina </title>
+			<style>
+
+				/*
+				primera forma de aplicar CSS:INTERNO(aplicado en el mismo arch.HTML)
+				por nombre de la etiqueta
+				*/
+				mark{
+					/*propiedad:valor*/
+					background-color:  brown;
+				}
+			</style>
+			<!--*3ra forma de aplicar CSS:EXTERNA-->
+			<link rel="stylesheet" href="styles.css">
+
+			<!--puedo colocar aca los link de las diferentes letras -->
+
+
+			<style>
+				body{
+					background-image: url(fondojava.jpg);
+				}
+			</style>
+	</head>
+
+	<body>
+	<!-- etiquetas semanticas -->
+	
+	<header>
+	 <h1>encabezado del documento o seccion</h1>
+	 <h2>encabezado del documento o seccion</h2>
+	 <h3>encabezado del documento o seccion</h3>
+	 <h4>encabezado del documento o seccion</h4>
+	 <h5>encabezado del documento o seccion</h5> 
+	</header>
+	
+	<nav>
+	<b>conjunto de enlaces</b>
+	</nav>
+	
+	<main>
+		<!--2da forma de APLICAR (CSS) un style inline-->
+		<mark style="background-color:aqua ;">contenido principal de la aplicacion</mark>
+	
+		<section>
+			<ins>define una seccion del contenido</ins>		
+		</section>
+		<section class="sectionCuston">
+			<h3>Selector por clase</h3>
+			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Neque dicta dolorem ut quasi voluptatum maxime voluptates facere ullam et. Aspernatur eos odit neque nesciunt dolores consequatur facere ipsam! Dolore, animi.</p>
+
+		</section>
+
+		<section id="sectionCustonid">
+			<h3>Selector por id</h3>
+			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Neque dicta dolorem ut quasi voluptatum maxime voluptates facere ullam et. Aspernatur eos odit neque nesciunt dolores consequatur facere ipsam! Dolore, animi.</p>
+
+		</section>
+		
+		<!--crear clases para no duplicar codigo-->
+		<!--contenedor de elementos-->
+		<div class="divBloque">
+			<h3>soy un h3</h3>
+			<p>Soy un bloque</p>
+
+		</div>
+		<div class="divBloque">
+			<h3>soy un h3</h3>
+			<p>Soy un bloque</p>
+
+		</div>
+	</main>
+	
+	<aside>
+		<small>publicidad</small>
+		<i>informacion principal</i>
+		(puede o no estar relacionada con el contenido principal)
+	</aside>
+	
+	<footer>
+		<del>datos de contacto</del>
+		<sup>mapa de sitio</sup>
+		<sub>mapa de sitio 2</sub>
+	</footer>
+	
+	<img src="fondojava.jpg" alt="">
+
+
+	</body> 
+
+
+
+
+
+</html>

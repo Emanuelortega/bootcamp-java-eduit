@@ -1,0 +1,32 @@
+/*css*/
+
+.section1{
+    background-color: blueviolet;
+}
+
+.section2{
+    background-color: beige;
+}
+
+.section3{
+    background-color: blue;
+}
+
+.tabla1{
+    background-color: blue;
+    width: 100%;
+    border: 50px;
+   
+}
+
+.fila1 {
+    background-color: aliceblue;
+    
+    
+}
+
+.fila1, th{
+    color: brown;
+    border: 50x;
+
+}
