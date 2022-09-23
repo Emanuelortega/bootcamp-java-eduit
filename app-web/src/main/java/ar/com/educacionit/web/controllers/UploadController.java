@@ -33,7 +33,7 @@ public class UploadController extends BaseServlet {
 		if (filePart == null || filePart.getSize() == 0) {
 			super.setAttributes(AttributesEnum.ERROR_GENERAL, req, "Debe seleccionar un archivo");
 			target = ViewsEnum.UPLOAD;
-			redirect(null, req, resp);
+			redirect(target, req, resp);
 		}
 		// InputStream
 
